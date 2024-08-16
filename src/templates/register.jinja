@@ -1,0 +1,59 @@
+{% extends "base/base.jinja" %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css')}}">
+{% endblock %}
+
+{% block title %}Register - {% endblock %}
+
+{% block header %}
+    {% include "includes/header.jinja" %}
+{% endblock %}
+
+{% block main %}
+  <div class="form-container">
+    <form method="POST" action="{{ url_for('views.register') }}">
+
+      {{ form.csrf_token }}
+
+
+      <div class="form-section">
+        {{ form.name.label }}<br>
+        {{ form.name(size=25) }}
+      </div>
+
+      <div class="form-section">
+        {{ form.surname.label }}<br>
+        {{ form.surname(size=25) }}
+      </div>
+
+      <div class="form-section">
+        {{ form.email.label }}<br>
+        {{ form.email(size=50)}}
+      </div>
+
+      <div class="form-section">
+        {{ form.password.label }}<br>
+        {{ form.password(size=30) }}
+      </div>
+
+      <div class="form-section">
+        {{ form.check_password.label }}<br>
+        {{ form.check_password(size=30) }}
+      </div>
+
+      {{ form.submit }}
+    </form>
+  </div>
+
+{% endblock %}
+  
+
+
+
+
+{% block footer %}
+    {% include "includes/footer.jinja" %}
+{% endblock %}
+
+

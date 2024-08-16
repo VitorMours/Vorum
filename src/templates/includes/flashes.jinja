@@ -1,0 +1,14 @@
+<div class="content-container">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+
+        {%if messages %}
+            <ul class="flash-messages">
+            
+            {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }} <button class="flash-message-delete-button"><span class="material-symbols-outlined">close</span></button></li>
+            {% endfor %}
+
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>

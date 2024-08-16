@@ -1,0 +1,34 @@
+/* Criando as classes e as categorias de flash message
+* com suas respectivas cores com base em categorias
+*/
+
+:root {
+          --sucess:#228B22;
+          --sucess-border:#1b661b;
+          --danger:#DC143C; 
+          --danger-border:#b11131;
+          --info:#B0E0E6;
+          --info-border:#559fa8;
+          --warning:#FFA500;
+          --warning-border:#c78305;
+}
+
+
+
+.sucess {
+          background-color:var(--sucess);
+          border:2px solid var(--sucess-border);
+}
+
+.info {
+          background-color:var(--info);
+          border:2px solid var(--info-border);
+}
+.warning {
+          background-color:var(--warning);
+          border:2px solid var(--warning-border);
+}
+.danger {
+          background-color:var(--danger);
+          border:2px solid var(--danger-border);
+} 
