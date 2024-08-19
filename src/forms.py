@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired 
-from wtforms import StringField, EmailField, PasswordField, SubmitField
-
+from wtforms import StringField, EmailField, PasswordField, SubmitField,SelectField
+from flask_ckeditor import CKEditorField
 
 
 
@@ -26,3 +26,15 @@ class SigninForm(FlaskForm):
 
     submit = SubmitField("Registrar")
 
+
+
+
+
+class PostForm(FlaskForm):
+    # TODO: Criar um formulário, que sere para criar nossos post,s isso pode ser feito com o usod da biblioteca markdown 
+    # para facilitar como os posts são feitos
+    title = StringField("Title", render_kw={"placeholder":"Título do post"}, validators=[DataRequired()])
+    tag = SelectField("Tema", choices=[("webdev","Web Development"),("systems","Systems Programming"),("cloud","Cloud Computing"),("architecture","Architecture")])
+    description = StringField("Description", render_kw={"placeholder":"Descrição rápida do post"}, validators=[DataRequired()])
+    content = CKEditorField("Content", validators=[DataRequired()])
+    submit = SubmitField("Criar post") 

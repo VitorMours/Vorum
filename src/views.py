@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, render_template, request, session, url_for, flash
-from .forms import LoginForm, SigninForm
+from .forms import LoginForm, SigninForm, PostForm
 from .models import User, db
 from .utils.auth import login_required
 
@@ -11,7 +11,6 @@ views = Blueprint("views", __name__, template_folder="templates", static_folder=
 
 @views.route('/')
 def index():
-    
     return render_template("index.jinja")
 
 
@@ -51,13 +50,9 @@ def register():
 
                 return redirect(url_for('views.index'))
 
-
             else:
                 flash("Já existe um usuário com esse cadastro dentro da base de dados", "danger")
                 return redirect(url_for('views.register'))
-
-
-
 
     else:
         return redirect(url_for("views.error"))
@@ -104,10 +99,19 @@ def login():
 @login_required
 def create_post():
     if request.method == "GET":
-        return render_template("create_post.jinja")
 
-    elif request.post == "POST":
-        return redirect(url_for("views.invalid_method"))
+        form = PostForm()
+        return render_template("create_post.jinja", form=form)
+
+    elif request.method == "POST":
+
+        if form.validate_on_submit():
+            title = request.form["title"]
+            content = request.form["content"]
+            description = request.form["description"]
+
+
+        return redirect(url_for("views.index"))
 
     else:
         return redirect(url_for("views.invalid_method"))

@@ -1,1 +1,52 @@
-criando post
+{% extends 'base/base.jinja'%}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/forms.css") }}">
+
+{% endblock %}
+
+{% block title %}Creating post - {% endblock %}
+
+
+{% block header %}
+          {% include 'includes/header.jinja' %}
+{% endblock %}
+
+
+
+
+
+
+{% block main %}
+  <div class="form-container post">
+    <form method="POST" action="{{ url_for('views.create_post') }}">
+     
+      {{ form.csrf_token }}
+
+      <div class="form-section">
+        {{ form.title.label }}
+        {{ form.title(size=50) }}
+      </div>  
+
+      <div class="form-section">
+        {{ form.description.label }}
+        {{ form.description(size=100) }}
+      </div>
+
+      <div id="text-area">
+        {{ form.content.label }}
+        {{ form.content() }}
+      </div>
+
+      {{ form.submit }}
+
+    </form>
+    {{ ckeditor.load(pkg_type="standard") }}
+    {{ ckeditor.config(name="content") }}
+
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% include 'includes/footer.jinja' %}
+{% endblock %}

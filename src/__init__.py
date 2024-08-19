@@ -2,6 +2,9 @@ from flask import Flask
 from .views import views
 from .models import db
 from flask_migrate import Migrate
+from flask_ckeditor import CKEditor
+
+ckeditor = CKEditor()
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
@@ -12,6 +15,8 @@ def create_app():
     )
 
     db.init_app(app)
+
+    ckeditor.init_app(app)
     migrate = Migrate(app, db)
 
     with app.app_context():
