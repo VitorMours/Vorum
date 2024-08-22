@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, render_template, request, session, url_for, flash
+from flask import Blueprint, redirect, render_template, request, session, url_for, flash, request, make_response
 from .forms import LoginForm, SigninForm, PostForm
-from .models import User, db
+from .models import User, Post, db
 from .utils.auth import login_required
 
 views = Blueprint("views", __name__, template_folder="templates", static_folder="static")
@@ -11,7 +11,11 @@ views = Blueprint("views", __name__, template_folder="templates", static_folder=
 
 @views.route('/')
 def index():
-    return render_template("index.jinja")
+    posts = Post.query.all()
+    for post in posts:
+        print(post)
+
+    return render_template("index.jinja", posts=posts)
 
 
 @views.route('/register', methods=["GET","POST"])
@@ -47,7 +51,7 @@ def register():
                 db.session.commit()
                 flash("Usuário cadastrado", "sucess")
                 session['logged_in'] = True
-
+                
                 return redirect(url_for('views.index'))
 
             else:
@@ -82,9 +86,14 @@ def login():
 
 
                     session['logged_in'] = True
+
                     flash("Usuário logado","sucess")
 
-                    return redirect(url_for("views.index"))
+
+                    response = make_response(redirect(url_for("views.index")))
+                    response.set_cookie("userID", f"{user.id}")
+                    response.set_cookie("userName", user.name)
+                    return response
                 
                 else:
 
@@ -98,20 +107,39 @@ def login():
 @views.route('/create_post', methods=["GET", "POST"])
 @login_required
 def create_post():
-    if request.method == "GET":
-
-        form = PostForm()
-        return render_template("create_post.jinja", form=form)
-
-    elif request.method == "POST":
+    form = PostForm()
+    if request.method == "POST":
+    
+                
 
         if form.validate_on_submit():
             title = request.form["title"]
             content = request.form["content"]
             description = request.form["description"]
+            
+            post = Post(
+                    owner=int(request.cookies.get("userID")),
+                    title = title,
+                    description = description,
+                    content = content,
+                    )
 
+            # TODO: Pegar informações do usuário, e usar elas com os dados do usuário 
+            # para salvar post dentro do banco de dados
 
-        return redirect(url_for("views.index"))
+            db.session.add(post)
+            db.session.commit()
+            
+            flash("Post Criado com sucesso", "sucess")
+
+            return redirect(url_for("views.index"))
+
+        else:
+            print(form.error)
+            return redirect(url_for("views.teapot"))
+
+    elif request.method == "GET":
+        return render_template("create_post.jinja", form=form)
 
     else:
         return redirect(url_for("views.invalid_method"))
@@ -128,6 +156,9 @@ def invalid_method(error):
     return render_template("error/405.jinja"), 405
 
 
+@views.app_errorhandler(418)
+def teapot():
+    return "<h2>Agora que deu, posso nem fazer café</h2>"
 
 
 

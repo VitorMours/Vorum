@@ -11,6 +11,7 @@ def create_app():
 
     app.config.from_mapping(
         SECRET_KEY="dev",
+            
         SQLALCHEMY_DATABASE_URI="sqlite:///database.sqlite3"
     )
 
