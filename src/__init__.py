@@ -1,8 +1,9 @@
 from flask import Flask 
 from .views import views
-from .models import db
+from .models import User, db
 from flask_migrate import Migrate
 from flask_ckeditor import CKEditor
+
 
 ckeditor = CKEditor()
 
@@ -11,12 +12,11 @@ def create_app():
 
     app.config.from_mapping(
         SECRET_KEY="dev",
-            
+        TEMPLATE_AUTO_RELOAD=True,
         SQLALCHEMY_DATABASE_URI="sqlite:///database.sqlite3"
     )
 
     db.init_app(app)
-
     ckeditor.init_app(app)
     migrate = Migrate(app, db)
 
@@ -24,6 +24,7 @@ def create_app():
         db.create_all()
 
     app.register_blueprint(views)
+
 
     return app
 

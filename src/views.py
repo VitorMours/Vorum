@@ -6,17 +6,15 @@ from .utils.auth import login_required
 views = Blueprint("views", __name__, template_folder="templates", static_folder="static")
 
 
-
-
-
 @views.route('/')
 def index():
     posts = Post.query.all()
-    for post in posts:
-        print(post)
-
+    try:
+        return render_template("index.jinja", posts=posts, session_logged=session['logged_in'])
+    except Exception as e :
+        print(f"Você tentou deslogar de uma sessão, mas já estamos tentando resolver esse problema: {e}")
     return render_template("index.jinja", posts=posts)
-
+    
 
 @views.route('/register', methods=["GET","POST"])
 def register():
@@ -146,6 +144,19 @@ def create_post():
 
 
 
+
+
+@views.route('/delete_post', methods=["GET","POST"])
+@login_required
+def delete_post():
+    return "Deleting post"
+
+
+
+@views.route('/update_post', methods=["GET","POST"])
+@login_required
+def update_post():
+    return "update post"
 
 @views.app_errorhandler(404)
 def page_not_found(error):

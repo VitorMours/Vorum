@@ -1,0 +1,20 @@
+<header>
+  <div class="header-content-container">
+    <h1>Book Register</h1>
+
+
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('views.index')}}" target="_self">Home</a></li>
+        <li><a href="{{ url_for('views.create_post') }}" target="_self">Create Post</a></li>
+      </ul>
+
+      <ul>
+        <li><a href="{{ url_for('views.delete_post') }}" target="_self">Delete Post</a></li>
+        <li><a href="{{ url_for('views.update_post') }}" target="_self">Update Post</a></li>
+        <li><a href="{{ url_for('views.logout') }}" target="_self">Logout</a></li>
+      
+      </ul>
+    </nav>
+  </div>
+</header>

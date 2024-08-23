@@ -4,8 +4,13 @@
 
 
 {% block header %}
-  {% include 'includes/header.jinja' %}
 
+  {% if session_logged %}
+    {% include 'includes/logged-header.jinja' %}
+  {% else %}
+    {% include 'includes/header.jinja' %}
+
+  {% endif %}
 {% endblock %}
 
 
