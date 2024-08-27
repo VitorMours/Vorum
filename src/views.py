@@ -6,6 +6,12 @@ from .utils.auth import login_required
 views = Blueprint("views", __name__, template_folder="templates", static_folder="static")
 
 
+@views.before_app_request
+def before_request():
+    if "logged_in" not in session:
+        session['logged_in'] = False
+
+
 @views.route('/')
 def index():
     posts = Post.query.all()

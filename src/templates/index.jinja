@@ -24,6 +24,12 @@
           <div class="post-info">
             <div class="post-header">
               <h2 class="post-title">{{ post.title }}</h2>
+               {% if session_logged %}
+                <div class="post-actions"> 
+                  <a href="{{ url_for('views.update_post') }}" ><button class="edit-post post-edition" ><span class="material-symbols-outlined">edit</span></button></a>
+                  <a href="{{ url_for('views.delete_post') }}" ><button class="delete-post post-edition"><span class="material-symbols-outlined">delete</span></button></a>
+                </div>
+              {% endif %} 
             </div>
             
             <p>{{ post.description }}</p>
