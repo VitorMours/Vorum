@@ -155,14 +155,15 @@ def create_post():
 @views.route('/delete_post', methods=["GET","POST"])
 @login_required
 def delete_post():
-    return "Deleting post"
+    return render_template('delete_post.jinja')
 
 
-
-@views.route('/update_post', methods=["GET","POST"])
+@views.route('/update_post/', methods=["GET","POST"])
 @login_required
 def update_post():
-    return "update post"
+    
+    #post = Post.query.filter_by(id=id).first()  
+    return render_template("update_post.jinja")
 
 @views.app_errorhandler(404)
 def page_not_found(error):

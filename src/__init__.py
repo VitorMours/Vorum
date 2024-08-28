@@ -3,8 +3,7 @@ from .views import views
 from .models import User, db
 from flask_migrate import Migrate
 from flask_ckeditor import CKEditor
-
-
+from .CLI import *
 ckeditor = CKEditor()
 
 def create_app():
@@ -23,7 +22,14 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+
+
     app.register_blueprint(views)
+
+
+
+    app.cli.add_command(CLI.create_fake_users)
+    app.cli.add_command(CLI.delete_all_users)
 
 
     return app
@@ -31,3 +37,7 @@ def create_app():
 if __name__ == "__main__":
     app = create_app()
     app.run()
+
+
+
+
