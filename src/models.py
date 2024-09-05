@@ -31,6 +31,6 @@ class Post(db.Model):
     
 
 
-    #def __str__(self):
-    #    return f"{pass}{pass}{pass}{pass}"
+    def __str__(self):
+        return f"Post number: {id}\n\t{self.owner}\n\t{self.title}\n\t{self.description}\n\t{self.content}"
 

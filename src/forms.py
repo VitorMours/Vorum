@@ -9,7 +9,7 @@ from flask_ckeditor import CKEditorField
 class LoginForm(FlaskForm):
     email = EmailField("email", render_kw={"placeholder":"Escreva o seu email"}, validators=[DataRequired()])
     password = PasswordField("senha", render_kw={"placeholder":" Escreva a sua senha"}, validators=[DataRequired()])
-    submit = SubmitField("Fazer Login")
+    submit = SubmitField("Login")
 
 
 
@@ -36,4 +36,4 @@ class PostForm(FlaskForm):
     title = StringField("title", render_kw={"placeholder":"Título do post"}, validators=[DataRequired()])
     description = StringField("description", render_kw={"placeholder":"Descrição rápida do post"}, validators=[DataRequired()])
     content = CKEditorField("content", validators=[DataRequired()])
-    submit = SubmitField("criar post") 
+    submit = SubmitField("Enviar") 

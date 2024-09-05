@@ -6,7 +6,6 @@ def login_required(f) -> bool:
     def decorator(*args, **kwargs):
         if "logged_in" in session and session['logged_in'] == True:
             return f(*args, **kwargs)
-
         else:
             flash("Você precisa primeiro estar logado dentro do sistema para usar a plataforma", "danger")
             return redirect(url_for("views.index"))

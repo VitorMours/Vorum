@@ -15,11 +15,8 @@ def before_request():
 @views.route('/')
 def index():
     posts = Post.query.all()
-    try:
-        return render_template("index.jinja", posts=posts, session_logged=session['logged_in'])
-    except Exception as e :
-        print(f"Você tentou deslogar de uma sessão, mas já estamos tentando resolver esse problema: {e}")
-    return render_template("index.jinja", posts=posts)
+    print(session['logged_in'])
+    return render_template("index.jinja", posts=posts, session_logged=session['logged_in'])
     
 
 @views.route('/register', methods=["GET","POST"])
@@ -128,9 +125,6 @@ def create_post():
                     content = content,
                     )
 
-            # TODO: Pegar informações do usuário, e usar elas com os dados do usuário 
-            # para salvar post dentro do banco de dados
-
             db.session.add(post)
             db.session.commit()
             
@@ -149,21 +143,53 @@ def create_post():
         return redirect(url_for("views.invalid_method"))
 
 
-
-
-
-@views.route('/delete_post', methods=["GET","POST"])
+@views.route('/delete_post/<int:id>', methods=["GET","POST"])
 @login_required
-def delete_post():
-    return render_template('delete_post.jinja')
+def delete_post(id):
+
+    Post.query.filter(Post.id == id).delete()
+    db.session.commit()
+
+    flash("Post deletado com sucesso", "sucess")
+
+    return redirect(url_for("views.index"))
 
 
-@views.route('/update_post/', methods=["GET","POST"])
+@views.route('/update_post/<int:id>', methods=["GET","POST"])
 @login_required
-def update_post():
+def update_post(id):
+    form = PostForm()
+
+    if request.method == "GET":
+        post = Post.query.filter_by(id=id).first()  
+        
+        form.title.data = post.title
+        form.description.data = post.description
+        form.content.data = post.content
+        form.submit.data = "Editar Post"
+
+        return render_template("update_post.jinja", post=post, form=form)
     
-    #post = Post.query.filter_by(id=id).first()  
-    return render_template("update_post.jinja")
+    elif request.method == "POST":
+      
+        if form.validate_on_submit():
+            title = request.form["title"]
+            description = request.form["description"]
+            content = request.form["content"]
+
+        Post.query.filter(Post.id == id).update(
+                                                {"title":title,
+                                                "description":description,
+                                                "content":content}
+                                                )
+        db.session.commit()
+
+        flash("Post atualizado", "info")
+        return redirect(url_for("views.index"))
+
+    else:
+        return redirect(url_for("views.invalid_method"))
+
 
 @views.app_errorhandler(404)
 def page_not_found(error):

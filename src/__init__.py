@@ -29,7 +29,9 @@ def create_app():
 
 
     app.cli.add_command(CLI.create_fake_users)
+    app.cli.add_command(CLI.create_fake_posts)
     app.cli.add_command(CLI.delete_all_users)
+    app.cli.add_command(CLI.delete_all_posts)
 
 
     return app
