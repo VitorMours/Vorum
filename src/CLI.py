@@ -2,12 +2,30 @@ import click
 from flask.cli import with_appcontext
 from .utils import mock_posts as mock
 from .models import db, User, Post
-@click.command(name="create-fake-users")
-@with_appcontext
-def create_fake_users():
-          data = mock.create_user()
-          print(data)
 
+@click.command(name="create-fake-users")
+@click.argument("quantity")
+@with_appcontext
+def create_fake_users(quantity):
+
+        for _ in range(int(quantity)):
+
+            data = mock.create_user()
+            fullname: list[str] = data[0].split()
+            name: str = fullname[0]
+            surname: str = fullname[-1]
+            email: str = data[1]
+            senha: int = data[2]
+
+            user = User(
+                name = name,
+                surname = surname,
+                email = email,
+                password = senha
+            )     
+            db.session.add(user)
+
+        db.session.commit()
 
 @click.command(name="create-fake-posts")
 @click.argument("quantity")

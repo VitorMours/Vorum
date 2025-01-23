@@ -19,6 +19,18 @@ def index():
     return render_template("index.jinja", posts=posts, session_logged=session['logged_in'])
     
 
+
+@views.route('/profile/<int:id>', methods=["GET","POST"])
+@login_required
+def profile(id):
+    if request.method == "GET":
+        return render_template("profile.jinja")
+    
+    elif request.method == "POST":
+        return redirect(url_for("views.invalid_method"))
+
+
+
 @views.route('/register', methods=["GET","POST"])
 def register():
 

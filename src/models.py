@@ -7,6 +7,13 @@ from sqlalchemy.orm import mapped_column, Mapped
 db = SQLAlchemy()
 
 class User(db.Model):
+
+    """
+        Model class to create an user instance, to send to database
+        and manipulate User data
+    
+    """
+
     __tablename__="User"
 
     id: Mapped[int] = db.Column(Integer, primary_key=True)

@@ -1,0 +1,17 @@
+* {
+  margin:0px;
+  padding:0px;
+}
+
+div{
+  background-color:lightblue;
+} 
+
+.classe{
+  background-color:black;
+  border-radius:12px;
+} 
+
+#id{
+  font-size: large;
+}
