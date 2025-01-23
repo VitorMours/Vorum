@@ -11,22 +11,40 @@ PORT=5000
 LOCALHOST=127.0.0.1
 
 
-
-Launching () {
-
-  echo "==================== Launching Flask Application ===================="
-  if [[ $FLASK_APP -eq "" ]]; then
-
-    export FLASK_APP="src/__init__.py"
-    echo "The aplication path established in FLASK_APP is: $FLASK_APP"
+InstallingRequirements () {
+  echo "==================== Installing Requirements ===================="
+  
+  # Ensure that we have a virtual environment folder
+  python -m venv venv
+  
+  # Activate virtual environment (Cross-platform fix)
+  if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    # Windows (Git Bash, Cygwin, etc.)
+    source venv/Scripts/activate
+  else
+    # Linux/MacOS
+    source venv/bin/activate
   fi
 
-  flask run
+  # Install the requirements
+  pip install -r requirements.txt
+}
+
+
+Launching () {
+  echo "==================== Launching Flask Application ===================="
+
+  # Check if FLASK_APP is set, and set it if not
+  if [[ -z "$FLASK_APP" ]]; then
+    export FLASK_APP="src/__init__.py"
+    echo "The application path established in FLASK_APP is: $FLASK_APP"
+  fi
+
+  # Run the Flask app
+  flask run --host=$LOCALHOST --port=$PORT
 }
 
 
 
-
-
-
+InstallingRequirements
 Launching
