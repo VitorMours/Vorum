@@ -1,12 +1,14 @@
 # Contexto
-O Book Register é um sistema desenvolvido em **python**, **html**, **css** e 
-**javascript** que serve para registrar posts dentro de um site, de forma que 
-eles sao mostrados sem especificar o autor, mas sendo modificados apenas pelo 
-mesmo.
+O Vorum é um sistema desenvolvido em **python**, **html**, **css** e 
+**javascript** que funciona simulando o funcionamento de um forum, em que 
+diversos usuários podem fazer login, e publicarem posts de autoria própria, 
+de forma em que a customização e a adição de novos elementos são possibilidades
+em todo o momento de criação e edição das postagens.
 
-Para a constuir o projeto faremos uso do micro-webframework **flask**, ele usa diversas outras bibliotecas para criar um servidor web python, que pode ser usado para o desenvolvimento de aplicações, servindo como back-end para elas.
 
-O funcionamento do flask, por ser um micro-framework, se dá de maneira mínima, possuindo apenas o necessário para o funcionamento do mesmo, visando-se necessário a instalação de extensões dentro do nosso projeto, para a adição de funcionalidade que podem vir a ser necessárias. Algumas dessas extensões serão utilizadas no projeto são: 
+Para a constuir o projeto foi usado o micro-webframework **flask**, ele usa diversas outras bibliotecas para criar um servidor web python, que pode ser usado para o desenvolvimento de aplicações, servindo como back-end para elas.
+
+O funcionamento do flask, por ser um micro-framework, se dá de maneira mínima, possuindo apenas o necessário para o funcionamento do mesmo, visando-se necessário a instalação de extensões dentro do projeto, para a adição de funcionalidade que podem vir a ser necessárias. Algumas dessas extensões são: 
 
 - **Flask-SQLAlchemy:** ORM utilizado para comunicar entre o banco de dados e o back-end.
 - **Flask-Migrate:** Extensão focada para afazer as migrações do banco de dado quando necessárias.
@@ -16,7 +18,7 @@ maior facilidade dos formularios.
 
 # Instalação e Configuração Inicial
 ### Configurações do flask
-Temos que algumas configurações devem ser feitas, para rodarmos o flask de maneira completa, e da maneira a qual ele foi pensada, sendo assim, podemos criar e rodar nossa aplicação de duas maneiras 
+Temos que algumas configurações devem ser feitas, para o flask funcionar corretamente,  sendo assim, podemos criar e rodar nossa aplicação de duas maneiras 
 
 - Por meio do script `run.sh`
 - por meio de comandos diretos no terminal
