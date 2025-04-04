@@ -7,8 +7,7 @@
 
 
 # Global variables of the program
-PORT=5000
-LOCALHOST=127.0.0.1
+
 
 
 InstallingRequirements () {
@@ -41,7 +40,7 @@ Launching () {
   fi
 
   # Run the Flask app
-  flask run --host=$LOCALHOST --port=$PORT
+  flask run
 }
 
 
