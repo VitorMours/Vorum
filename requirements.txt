@@ -36,3 +36,4 @@ webencodings==0.5.1
 Werkzeug==3.0.3
 wtf==0.1
 WTForms==3.1.2
+gunicorn
